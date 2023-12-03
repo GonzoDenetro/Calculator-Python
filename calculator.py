@@ -1,4 +1,14 @@
-def calculator(num1, num2, operator):        
+def deleteSpaces(operacion):
+    list_operation = list(operacion) #Pasamos nuestro string a una lista
+    elementos_operacion = []
+    for element in list_operation:
+        if element.find(' ') == -1:
+            #Lo que hace find() es buscar un espacio, si no lo encuentra regresa -1
+             elementos_operacion.append(element)
+    print(list_operation)
+    print(elementos_operacion)
+
+def calculator(num1, num2, operator):     
     if operator == '+':
         result = num1 + num2
     elif operator == '-':
@@ -15,11 +25,13 @@ def calculator(num1, num2, operator):
 def run():
     print("CALCULADORA")
     operacion = input("Introduce tu operación: ")
-    user_num1 = int(input("Introduce tu primer número: "))
-    user_num2 = int(input("Introduce tu segundo número: "))
-    operador = input("Introduce el operador de tu operación (+, -, *, /)" )
-    result = calculator(user_num1, user_num2, operador)
-    print(f'Tu resultado es {result}')
+    print(operacion)
+    deleteSpaces(operacion)
+    #user_num1 = int(input("Introduce tu primer número: "))
+    #user_num2 = int(input("Introduce tu segundo número: "))
+    #operador = input("Introduce el operador de tu operación (+, -, *, /)" )
+    #result = calculator(user_num1, user_num2, operador)
+    #print(f'Tu resultado es {result}')
 
 
 if __name__ == '__main__':
