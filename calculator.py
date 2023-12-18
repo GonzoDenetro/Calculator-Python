@@ -9,10 +9,12 @@ def deleteSpaces(operacion):
     return elementos_operacion
 
 def joinNums(operation_list):
-    print(f'2..- {operation_list}')
+    #Recibimos la operación en partes en forma de lista, vamos a unir los números.
+    print(f'2..- {operation_list}') 
 
     operadores = ['+', '-', '/', '*']
     num = [] #En el array vamos a tener el número por partes
+    elem_operacion = [] #En esta lista guarademos todos los elementos de la operación
     
     for elem in operation_list: #Recorremos el array donde esta la operación
         if elem not in operadores: 
@@ -23,30 +25,54 @@ def joinNums(operation_list):
             #Cuando el elemento sea el operador, es que ya tenemos el primer número completo, y el operador.
             #Repetimos para obtener el siguiente número
             operador = elem 
-            num1 = "".join(num) # join() lo que hace es los elementos de una lista pasarlos a string
+            num1 = int("".join(num)) # join() lo que hace es los elementos de una lista pasarlos a string
+            elem_operacion.append(num1)
+            elem_operacion.append(operador)
             print(num1, operador)
             num = []
-    num2 = "".join(num)
-    print(num1, operador, num2)
+    num2 = int("".join(num))
+    elem_operacion.append(num2)
+    print(elem_operacion)
+    return elem_operacion
     
-    return num1, operador, num2
+    #return num1, operador, num2
 
 def calculator(operacion):
-    elem_operation = deleteSpaces(operacion)
-    num1, operator, num2 = joinNums(elem_operation)
-    num1 = int(num1)
-    num2 = int(num2)
+    operation_por_partes = deleteSpaces(operacion)
+    operacion_elem = joinNums(operation_por_partes)
+    operadores = ['+', '-', '/', '*']
+    result = 0
     
-    if operator == '+':
-        result = num1 + num2
-    elif operator == '-':
-        result = num1 - num2
-    elif operator == '*' or operator == 'x':
-        result = num1 * num2
-    elif operator == '/':
-        result = num1 / num2
-    else:
-        print("No tenemos esa operación disponible")
+    while len(operacion_elem) > 1:
+        #Hacemos la operación, el resultado lo agregamos a la lista, y eliminamos los elementos que ya usamos.
+        #Hasta que en la lista solo quede el un elemento que es el resultado
+        print("----",operacion_elem)
+        num1 = operacion_elem[0]
+        operator = operacion_elem[1]
+        num2 = operacion_elem[2]    
+    
+        if operator == '+':
+            result = num1 + num2
+        elif operator == '-':
+            result = num1 - num2
+        elif operator == '*' or operator == 'x':
+            result = num1 * num2
+        elif operator == '/':
+            result = num1 / num2
+        else:
+            print("No tenemos esa operación disponible")
+        
+        print(result)
+        print(operacion_elem)
+        operacion_elem.insert(0, result)
+        print(operacion_elem)
+        operacion_elem.remove(num1)
+        print(operacion_elem)
+        operacion_elem.remove(operator)
+        print(operacion_elem)
+        operacion_elem.remove(num2)
+        print(operacion_elem)
+            
     return result
 
 
